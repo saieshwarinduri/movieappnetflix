@@ -1,0 +1,46 @@
+.homeBackground {
+  height: 73%;
+  width: 100%;
+}
+.mainHomecontainer {
+  background-color: #131313;
+  min-height: 100vh;
+}
+.tryagainbutton {
+  background-color: white;
+  color: black;
+  height: 35px;
+  width: 80px;
+  border: none;
+  margin-top: 30px;
+  border-radius: 4px;
+}
+.failurecontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+.loadingContainer {
+  width: 100%;
+  height: 60%;
+}
+.home-sizes-container {
+  height: 70vh;
+  padding: 10px;
+  margin: 10px;
+}
+.bottomcontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
+  height: 40%;
+}

@@ -1,0 +1,67 @@
+.constnetoverview {
+  padding-left: 60px;
+  padding-right: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+}
+.titelofposter {
+  margin: 0px;
+}
+.timeratingyearcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150px;
+  justify-content: space-between;
+  height: 30px;
+  margin: 0px;
+}
+.detailscontainer {
+  padding-left: 60px;
+  padding-right: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.genersContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0px;
+  color: white;
+  list-style-type: none;
+  margin-top: 20px;
+}
+.genresheading {
+  font-size: 12px;
+  color: white;
+}
+.deatilename {
+  font-size: 10px;
+}
+.counta {
+  color: white;
+  font-size: 12px;
+  margin: 0px;
+}
+.similarMovieimage {
+  height: 170px;
+  width: 260px;
+  border-radius: 4px;
+  margin: 5px;
+}
+@media screen and (max-width: 768px) {
+  .similarMovieimage {
+    height: 60px;
+    width: 120px;
+  }
+}
+.morelikeThis {
+  color: white;
+  padding-left: 60px;
+  font-size: 23px;
+}

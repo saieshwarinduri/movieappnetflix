@@ -1,0 +1,25 @@
+.pagenotFoundbackground {
+  background-image: url('https://res.cloudinary.com/djomnr5y2/image/upload/v1672831160/snow-removal-machine-working-high-ski-slope-snowstorm_454047-2149_1backNotfound_mr5jkv.png');
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pagenotFoundcontentContainer {
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  align-items: center;
+}
+.lostYourWay {
+  color: white;
+  font-size: 30px;
+  font-family: 'Roboto';
+}
+.ntFoundparagraph {
+  color: white;
+  text-align: center;
+}

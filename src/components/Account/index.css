@@ -1,0 +1,50 @@
+.accountContentcontainer {
+  height: 400px;
+  background-color: white;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.contnennnffnnf {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 50%;
+}
+.membershipconatiner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 40px;
+  margin-right: 15px;
+}
+.parag {
+  margin-bottom: 0px;
+}
+.memusepassconatiner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.line {
+  background-color: black;
+  height: 1px;
+  width: 100%;
+}
+.buttonconatiner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+.premium {
+  margin-left: 20px;
+}
+.plansPremium {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+}
+.alndetaisl {
+  margin-right: 10px;
+}
