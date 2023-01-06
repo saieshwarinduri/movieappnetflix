@@ -19,13 +19,13 @@ class SearchFilter extends Component {
     searchInput: '',
     searchMovies: [],
     apiStatus: apiStatusConstants.initial,
-  }
-
-  componentDidMount() {
-    this.getSearchMovies()
+    hidesearch: true,
   }
 
   getSearchMovies = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
     const {searchInput} = this.state
     // console.log(searchInput)
     const jwtToken = Cookies.get('jwt_token')
@@ -59,12 +59,9 @@ class SearchFilter extends Component {
   }
 
   searchInput = text => {
-    this.setState(
-      {
-        searchInput: text,
-      },
-      this.getSearchMovies,
-    )
+    this.setState({
+      searchInput: text,
+    })
   }
 
   onRetry = () => {
@@ -74,7 +71,7 @@ class SearchFilter extends Component {
   renderFailureView = () => <FailureView onRetry={this.onRetry} />
 
   renderLoadingView = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" height={35} width={380} color=" #D81F26" />
     </div>
   )
@@ -88,9 +85,9 @@ class SearchFilter extends Component {
           alt="no movies"
           className="search-not-found-image"
         />
-        <h1 className="search-not-found-heading">
-          Your search for {searchInput} did not find any matches.
-        </h1>
+        <p className="search-not-found-heading">
+          Your search for {searchInput} did not find any matches
+        </p>
       </div>
     )
   }
@@ -106,15 +103,15 @@ class SearchFilter extends Component {
               <div className="search-filter-movies-list-container">
                 <ul className="search-filter-ul-container">
                   {searchMovies.map(each => (
-                    <Link to={`/movies/${each.id}`} key={each.id}>
-                      <li className="search-filter-li-item" key={each.id}>
+                    <li className="search-filter-li-item" key={each.id}>
+                      <Link to={`/movies/${each.id}`}>
                         <img
                           className="search-poster"
                           src={each.posterPath}
                           alt={each.title}
                         />
-                      </li>
-                    </Link>
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -161,11 +158,15 @@ class SearchFilter extends Component {
   }
 
   render() {
+    const {hidesearch} = this.state
     return (
       <div className="search-filter-bg-container">
-        <Header searchInput={this.searchInput} />
+        <Header
+          searchInput={this.searchInput}
+          getSearchMovies={this.getSearchMovies}
+          hidesearch={hidesearch}
+        />
         <div>{this.renderSearchMovies()}</div>
-        <Footer />
       </div>
     )
   }

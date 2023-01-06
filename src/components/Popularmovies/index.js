@@ -38,6 +38,10 @@ class Popularmovies extends Component {
         apiState: apistate.succuss,
         popularMovielist: data.results,
       })
+    } else {
+      this.setState({
+        apiState: apistate.failure,
+      })
     }
   }
 
@@ -61,7 +65,7 @@ class Popularmovies extends Component {
       />
       <p>Something went wrong. Please try again</p>
       <button type="button" className="tryagainbutton" onClick={this.tryagain}>
-        Try again
+        Try Again
       </button>
     </div>
   )
@@ -77,8 +81,9 @@ class Popularmovies extends Component {
           <ul className="popularlistconatiner">
             {popularMovielist.map(each => (
               <li key={each.id}>
-                <Link to={`/movies/${each.id}`}>
+                <Link to={`/movies/${each.id}`} key={each.id}>
                   <img
+                    key={each.id}
                     className="popularimage"
                     src={each.poster_path}
                     alt={each.title}

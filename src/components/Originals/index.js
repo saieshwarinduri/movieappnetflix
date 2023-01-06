@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
-import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 
 import 'slick-carousel/slick/slick.css'
@@ -30,21 +29,21 @@ class Orinals extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
+
+    const updatedData = data.results.map(each => ({
+      id: each.id,
+      backdropPath: each.backdrop_path,
+      name: each.title,
+      overview: each.overview,
+      posterPath: each.poster_path,
+    }))
     if (response.ok === true) {
       this.setState({
         loading: false,
-        trendingNowlist: data.results,
+        trendingNowlist: updatedData,
       })
     }
   }
-
-  loadingView = () => (
-    <div className="loadingContainer">
-      <div className="loader-container" testid="loader">
-        <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
-      </div>
-    </div>
-  )
 
   render() {
     const {trendingNowlist} = this.state
@@ -56,22 +55,19 @@ class Orinals extends Component {
 
     return (
       <>
-        <ul className="slider-container-lg">
-          <h1 className="trendingNowheading">Originals</h1>
-          <Slider {...settingsLg}>
-            {trendingNowlist.map(each => (
-              <li key={each.id} className="listitem">
-                <Link to={`/movies/${each.id}`}>
-                  <img
-                    alt={each.title}
-                    className="siderimages"
-                    src={each.backdrop_path}
-                  />
-                </Link>
-              </li>
-            ))}
-          </Slider>
-        </ul>
+        <Slider {...settingsLg}>
+          {trendingNowlist.map(each => (
+            <li key={each.id} className="listitem">
+              <Link to={`/movies/${each.id}`}>
+                <img
+                  alt={each.name}
+                  className="siderimages"
+                  src={each.backdropPath}
+                />
+              </Link>
+            </li>
+          ))}
+        </Slider>
       </>
     )
   }

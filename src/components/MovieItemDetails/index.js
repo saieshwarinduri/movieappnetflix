@@ -218,7 +218,6 @@ class MovieItemdetails extends Component {
               ))}
             </ul>
           </div>
-
           <>
             <Footer />
           </>

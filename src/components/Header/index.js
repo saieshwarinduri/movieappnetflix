@@ -29,18 +29,22 @@ class Header extends Component {
 
   onChangeSearchInput = event => {
     const {searchInput} = this.props
-    if (event.key === 'Enter') {
-      searchInput(event.target.value)
-    }
+    searchInput(event.target.value)
+  }
+
+  getThedetails = () => {
+    const {getSearchMovies} = this.props
+    getSearchMovies()
   }
 
   render() {
     const {showMenu, showSearchBar} = this.state
-    const {match} = this.props
+    const {match, hidesearch} = this.props
     const {path} = match
     let homeClassNameStyling
     let popularClassNameStyling
     let accountClassNameStyling
+    const k = hidesearch === undefined ? 5 === 4 : true
 
     switch (path) {
       case '/popular':
@@ -81,28 +85,35 @@ class Header extends Component {
             </Link>
           </ul>
           <div className="search-container">
-            {showSearchBar && (
-              <input
-                type="search"
-                onKeyDown={this.onChangeSearchInput}
-                placeholder="search"
-                className="search"
-              />
-            )}
-            <Link to="/search">
-              <button
-                type="button"
-                className="icon-button"
-                testid="searchButton"
-              >
-                <HiOutlineSearch
-                  size={20}
-                  color="white"
-                  testid="searchButton"
-                  onClick={this.onClickSearchIcon}
+            {k && (
+              <div className="searchbuttonContainer">
+                <input
+                  type="search"
+                  onChange={this.onChangeSearchInput}
+                  placeholder="search"
+                  className="search"
                 />
-              </button>
-            </Link>
+                <button
+                  className="button"
+                  testid="searchButton"
+                  type="button"
+                  onClick={this.getThedetails}
+                >
+                  <HiOutlineSearch size={20} color="white" />
+                </button>
+              </div>
+            )}
+            {!k && (
+              <Link to="/search">
+                <button
+                  type="button"
+                  className="icon-button"
+                  testid="searchButton"
+                >
+                  <HiOutlineSearch size={20} color="white" />
+                </button>
+              </Link>
+            )}
             <Link to="/account">
               <img
                 src="https://res.cloudinary.com/dyx9u0bif/image/upload/v1657426927/account-avatar_irmhck.png"

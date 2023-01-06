@@ -54,22 +54,19 @@ class TrendingNow extends Component {
       slidesToScroll: 1,
     }
     return (
-      <ul className="slider-container">
-        <h1 className="trendingNowheading">Trending Now</h1>
-        <Slider {...settings}>
-          {trendingNowlist.map(each => (
+      <Slider {...settings}>
+        {trendingNowlist.map(each => (
+          <Link to={`/movies/${each.id}`}>
             <li key={each.id} className="listitem">
-              <Link to={`/movies/${each.id}`}>
-                <img
-                  alt={each.title}
-                  className="siderimages"
-                  src={each.backdrop_path}
-                />
-              </Link>
+              <img
+                alt={each.title}
+                className="siderimages"
+                src={each.backdrop_path}
+              />
             </li>
-          ))}
-        </Slider>
-      </ul>
+          </Link>
+        ))}
+      </Slider>
     )
   }
 }
