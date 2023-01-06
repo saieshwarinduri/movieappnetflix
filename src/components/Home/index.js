@@ -27,6 +27,7 @@ class Home extends Component {
   componentDidMount() {
     this.getThebannerImage()
     this.getTrendingnowDetails()
+    this.getOriginalsDetails()
   }
 
   tryagain = () => {
@@ -70,7 +71,7 @@ class Home extends Component {
     }
   }
 
-  getTrendingnowDetails = async () => {
+  getOriginalsDetails = async () => {
     this.setState({
       loading: true,
     })
