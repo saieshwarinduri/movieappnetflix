@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 import Header from '../Header'
 import FailureView from '../FailureView'
 import Footer from '../Footer'
@@ -22,6 +25,8 @@ class Home extends Component {
     apiState: apistateoBJ.initial,
     originalslist: [],
     trendingNowlist: [],
+    trendingloading: apistateoBJ.initial,
+    originalloading: apistateoBJ.initial,
   }
 
   componentDidMount() {
@@ -73,7 +78,7 @@ class Home extends Component {
 
   getOriginalsDetails = async () => {
     this.setState({
-      loading: true,
+      originalloading: apistateoBJ.inProgress,
     })
     const url = 'https://apis.ccbp.in/movies-app/originals'
     const jwtToken = Cookies.get('jwt_token')
@@ -95,15 +100,19 @@ class Home extends Component {
     }))
     if (response.ok === true) {
       this.setState({
-        loading: false,
+        originalloading: apistateoBJ.success,
         originalslist: updatedData,
+      })
+    } else {
+      this.setState({
+        originalloading: apistateoBJ.failure,
       })
     }
   }
 
   getTrendingnowDetails = async () => {
     this.setState({
-      loading: true,
+      trendingloading: apistateoBJ.inProgress,
     })
     const url = 'https://apis.ccbp.in/movies-app/trending-movies'
     const jwtToken = Cookies.get('jwt_token')
@@ -117,15 +126,19 @@ class Home extends Component {
     const data = await response.json()
     if (response.ok === true) {
       this.setState({
-        loading: false,
+        trendingloading: apistateoBJ.success,
         trendingNowlist: data.results,
+      })
+    } else {
+      this.setState({
+        trendingloading: apistateoBJ.failure,
       })
     }
   }
 
   renderSuccussView = () => {
     const {banerimageObj} = this.state
-    console.log(banerimageObj)
+
     return (
       <div className="loadingContainer">
         <>
@@ -192,7 +205,13 @@ class Home extends Component {
   )
 
   render() {
-    const {apiState, originalslist, trendingNowlist} = this.state
+    const {
+      apiState,
+      originalslist,
+      trendingNowlist,
+      trendingloading,
+      originalloading,
+    } = this.state
     const settingsLg = {
       dots: true,
       slidesToShow: 4,
@@ -208,44 +227,93 @@ class Home extends Component {
       <div className="mainHomecontainer">
         {apiState === apistateoBJ.inProgress && <>{this.loadingView()}</>}
         {apiState === apistateoBJ.success && <>{this.renderSuccussView()}</>}
-        {apiState === apistateoBJ.failure && <>{this.renderFailureView()}</>}
+        {apiState === apistateoBJ.failure && (
+          <>
+            <div className="failurecontainer">
+              <img
+                src="https://res.cloudinary.com/djomnr5y2/image/upload/v1673265233/Iconerrrr_jzubbd.png"
+                alt="failure view"
+              />
+              <p>Something went wrong. Please try again</p>
+              <button type="button" onClick={this.getThebannerImage}>
+                Try Again
+              </button>
+            </div>
+          </>
+        )}
         <div className="bottomcontainer">
           <ul className="slider-container">
             <h1 className="trendingNowheading">Trending Now</h1>
-            <Slider {...settings}>
-              {trendingNowlist.map(each => (
-                <Link to={`/movies/${each.id}`}>
-                  <li key={each.id} className="listitem">
-                    <img
-                      alt={each.title}
-                      className="siderimages"
-                      src={each.backdrop_path}
-                    />
-                  </li>
-                </Link>
-              ))}
-            </Slider>
+            {trendingloading === apistateoBJ.success && (
+              <>
+                <Slider {...settings}>
+                  {trendingNowlist.map(each => (
+                    <li key={each.id} className="listitem">
+                      <Link to={`/movies/${each.id}`}>
+                        <img
+                          alt={each.title}
+                          className="siderimages"
+                          src={each.backdrop_path}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </Slider>
+              </>
+            )}
+            {trendingloading === apistateoBJ.inProgress && (
+              <>{this.loadingView()}</>
+            )}
+            {trendingloading === apistateoBJ.failure && (
+              <div className="failurecontainer">
+                <img
+                  src="https://res.cloudinary.com/djomnr5y2/image/upload/v1673265233/Iconerrrr_jzubbd.png"
+                  alt="failure view"
+                />
+                <p>Something went wrong. Please try again</p>
+                <button type="button" onClick={this.getTrendingnowDetails}>
+                  Try Again
+                </button>
+              </div>
+            )}
           </ul>
           <ul className="slider-container-lg">
             <h1 className="trendingNowheading">Originals</h1>
-            <Slider {...settingsLg}>
-              {originalslist.map(each => (
-                <Link to={`/movies/${each.id}`}>
-                  <li key={each.id} className="listitem">
-                    <img
-                      alt={each.name}
-                      className="siderimages"
-                      src={each.backdropPath}
-                    />
-                  </li>
-                </Link>
-              ))}
-            </Slider>
+            {originalloading === apistateoBJ.success && (
+              <div>
+                <Slider {...settingsLg}>
+                  {originalslist.map(each => (
+                    <Link to={`/movies/${each.id}`}>
+                      <li key={each.id} className="listitem">
+                        <img
+                          alt={each.name}
+                          className="siderimages"
+                          src={each.backdropPath}
+                        />
+                      </li>
+                    </Link>
+                  ))}
+                </Slider>
+              </div>
+            )}
+            {originalloading === apistateoBJ.inProgress && (
+              <>{this.loadingView()}</>
+            )}
+            {originalloading === apistateoBJ.failure && (
+              <div className="failurecontainer">
+                <img
+                  src="https://res.cloudinary.com/djomnr5y2/image/upload/v1673265233/Iconerrrr_jzubbd.png"
+                  alt="failure view"
+                />
+                <p>Something went wrong. Please try again</p>
+                <button type="button" onClick={this.getOriginalsDetails}>
+                  Try Again
+                </button>
+              </div>
+            )}
           </ul>
-          <>
-            <Footer />
-          </>
         </div>
+        <Footer />
       </div>
     )
   }

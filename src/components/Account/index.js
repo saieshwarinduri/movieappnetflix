@@ -30,10 +30,9 @@ const Account = props => {
         </div>
         <hr className="line" />
         <div className="plansPremium">
-          <p className="palndetaisl">Plans Details</p>
-          <p className="premium">
-            Premium <span>Ultra Hd</span>
-          </p>
+          <p className="palndetaisl">Plan details</p>
+          <p className="premium">Premium </p>
+          <p>Ultra HD</p>
         </div>
         <hr className="line" />
         <div className="buttonconatiner">
@@ -42,7 +41,6 @@ const Account = props => {
           </button>
         </div>
       </div>
-
       <Footer />
     </div>
   )

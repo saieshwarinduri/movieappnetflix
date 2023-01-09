@@ -90,6 +90,7 @@ class MovieItemdetails extends Component {
   }
 
   tryagain = () => {
+    console.log('kkk')
     this.getThemoviedetails()
   }
 
@@ -103,15 +104,23 @@ class MovieItemdetails extends Component {
   }
 
   renderFailureView = () => (
-    <div className="loadingContainer failurecontainer">
-      <img
-        src="https://res.cloudinary.com/djomnr5y2/image/upload/v1672759760/Background-Completebackfaileimage_yzrhyi.png"
-        alt="failure view"
-      />
-      <button type="button" className="tryagainbutton" onClick={this.tryagain}>
-        Try again
-      </button>
-    </div>
+    <>
+      <Header />
+      <div className="loadingContainer failurecontainer">
+        <img
+          src="https://res.cloudinary.com/djomnr5y2/image/upload/v1672759760/Background-Completebackfaileimage_yzrhyi.png"
+          alt="failure view"
+        />
+        <p>Something went wrong. Please try again</p>
+        <button
+          type="button"
+          className="tryagainbutton"
+          onClick={this.tryagain}
+        >
+          Try again
+        </button>
+      </div>
+    </>
   )
 
   loadingView = () => (
@@ -171,57 +180,59 @@ class MovieItemdetails extends Component {
     return (
       <div className="mainHomecontainer">
         {apistate === apistateoBJ.inProgress && <>{this.loadingView()}</>}
-        {apistate === apistateoBJ.success && <>{this.renderSuccussView()}</>}
         {apistate === apistateoBJ.failure && <>{this.renderFailureView()}</>}
-        <div className="bottomcontainer">
-          <div className="detailscontainer">
-            <ul className="genersContainer">
-              <h1 className="genresheading">Genres</h1>
-              {genresData.map(each => (
-                <p className="deatilename" key={each.id}>
-                  {each.name}
-                </p>
-              ))}
-            </ul>
-            <ul className="genersContainer">
-              <h1 className="genresheading">Audio Available</h1>
-              {spokenLanguages.map(each => (
-                <p className="deatilename" key={each.id}>
-                  {each.language}
-                </p>
-              ))}
-            </ul>
-            <div className="genersContainer">
-              <h1 className="genresheading">Rating Count</h1>
-              <p className="counta">{moviedetails.count}</p>
-              <h1 className="genresheading">Rating Average</h1>
-              <p className="counta">{moviedetails.rating}</p>
-            </div>
-            <div className="genersContainer">
-              <h1 className="genresheading">Budget</h1>
-              <p className="counta">{moviedetails.budget}</p>
-              <h1 className="genresheading">Release Date</h1>
-              <p className="counta">{moviedetails.releaseDate}</p>
-            </div>
-          </div>
-          <div>
-            <h1 className="morelikeThis">More like this</h1>
-            <ul className="detailscontainer">
-              {similarMovies.map(each => (
-                <li key={each.id}>
-                  <img
-                    className="similarMovieimage"
-                    src={each.posterPath}
-                    alt={each.title}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
+        {apistate === apistateoBJ.success && (
           <>
-            <Footer />
+            {this.renderSuccussView()}
+            <div className="bottomcontainer">
+              <div className="detailscontainer">
+                <ul className="genersContainer">
+                  <h1 className="genresheading">Genres</h1>
+                  {genresData.map(each => (
+                    <p className="deatilename" key={each.id}>
+                      {each.name}
+                    </p>
+                  ))}
+                </ul>
+                <ul className="genersContainer">
+                  <h1 className="genresheading">Audio Available</h1>
+                  {spokenLanguages.map(each => (
+                    <p className="deatilename" key={each.id}>
+                      {each.language}
+                    </p>
+                  ))}
+                </ul>
+                <div className="genersContainer">
+                  <h1 className="genresheading">Rating Count</h1>
+                  <p className="counta">{moviedetails.count}</p>
+                  <h1 className="genresheading">Rating Average</h1>
+                  <p className="counta">{moviedetails.rating}</p>
+                </div>
+                <div className="genersContainer">
+                  <h1 className="genresheading">Budget</h1>
+                  <p className="counta">{moviedetails.budget}</p>
+                  <h1 className="genresheading">Release Date</h1>
+                  <p className="counta">{moviedetails.releaseDate}</p>
+                </div>
+              </div>
+              <div>
+                <h1 className="morelikeThis">More like this</h1>
+                <ul className="detailscontainer">
+                  {similarMovies.map(each => (
+                    <li key={each.id}>
+                      <img
+                        className="similarMovieimage"
+                        src={each.posterPath}
+                        alt={each.title}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </>
-        </div>
+        )}
+        <Footer />
       </div>
     )
   }

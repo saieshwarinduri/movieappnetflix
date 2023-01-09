@@ -81,9 +81,8 @@ class Popularmovies extends Component {
           <ul className="popularlistconatiner">
             {popularMovielist.map(each => (
               <li key={each.id}>
-                <Link to={`/movies/${each.id}`} key={each.id}>
+                <Link to={`/movies/${each.id}`}>
                   <img
-                    key={each.id}
                     className="popularimage"
                     src={each.poster_path}
                     alt={each.title}
@@ -94,10 +93,7 @@ class Popularmovies extends Component {
           </ul>
         )}
         {apiState === apistate.failure && <>{this.renderFailureView()}</>}
-
-        <>
-          <Footer />
-        </>
+        <Footer />
       </div>
     )
   }

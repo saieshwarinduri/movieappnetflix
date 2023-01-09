@@ -66,7 +66,7 @@ class Header extends Component {
 
     return (
       <nav className="nav-container">
-        <div className="nav-elements-container">
+        <nav className="nav-elements-container">
           <Link to="/">
             <img
               src="https://res.cloudinary.com/dyx9u0bif/image/upload/v1657426908/lg-devices-logo_rpfa68.png"
@@ -128,7 +128,7 @@ class Header extends Component {
               onClick={this.onClickShowMenu}
             />
           </div>
-        </div>
+        </nav>
         {showMenu && (
           <div>
             <ul className="list-mini">
